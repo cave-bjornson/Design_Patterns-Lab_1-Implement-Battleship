@@ -1,3 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Cocona;
 
-Console.WriteLine("Hello, World!");
+CoconaLiteApp.Run(() => { Console.WriteLine("Hello, World!"); });
