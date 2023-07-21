@@ -2,8 +2,17 @@ using static ClassLibrary.ShipClass;
 
 namespace ClassLibrary;
 
-public class ShipFactory
+public interface IShipFactory
 {
+    Ship CreateShip(ShipClass shipClass);
+}
+
+public class ShipFactory : IShipFactory
+{
+    public ShipFactory()
+    {
+    }
+
     public Ship CreateShip(ShipClass shipClass)
     {
         Ship ship = new()
