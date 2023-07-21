@@ -9,7 +9,14 @@ public interface IShipFactory
 
 public class ShipFactory : IShipFactory
 {
-    public ShipFactory()
+    private static ShipFactory? _instance;
+
+    public static ShipFactory GetInstance()
+    {
+        return _instance ??= new ShipFactory();
+    }
+    
+    private ShipFactory()
     {
     }
 

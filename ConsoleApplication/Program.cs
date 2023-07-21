@@ -3,10 +3,10 @@ using Cocona;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = CoconaApp.CreateBuilder();
-builder.Services.AddSingleton<ShipFactory>();
+builder.Services.AddSingleton<IShipFactory>(ShipFactory.GetInstance());
 var app = builder.Build();
 
-app.Run((ShipFactory shipFactory) =>
+app.Run((IShipFactory shipFactory) =>
 {
     var ship = shipFactory.CreateShip(ShipClass.Carrier);
     Console.WriteLine(ship.Dump());
