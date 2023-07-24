@@ -11,11 +11,6 @@ public class ShipFactory : IShipFactory
 {
     private static ShipFactory? _instance;
 
-    public static ShipFactory GetInstance()
-    {
-        return _instance ??= new ShipFactory();
-    }
-    
     private ShipFactory()
     {
     }
@@ -28,16 +23,38 @@ public class ShipFactory : IShipFactory
             Name = shipClass.ToString()
         };
 
-        ship.Size = shipClass switch
+        switch (shipClass)
         {
-            Carrier => 5,
-            Battleship => 4,
-            Destroyer => 3,
-            Submarine => 3,
-            PatrolBoat => 2,
-            _ => throw new ArgumentOutOfRangeException(nameof(shipClass), shipClass, null)
-        };
+            case Carrier:
+                ship.Size = 5;
+                ship.Symbol = 'C';
+                break;
+            case Battleship:
+                ship.Size = 4;
+                ship.Symbol = 'B';
+                break;
+            case Destroyer:
+                ship.Size = 3;
+                ship.Symbol = 'D';
+                break;
+            case Submarine:
+                ship.Size = 3;
+                ship.Symbol = 'S';
+                break;
+            case PatrolBoat:
+                ship.Size = 2;
+                ship.Symbol = 'P';
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(shipClass), shipClass, null);
+        }
 
+        ship.DamagedSymbol = char.ToLower(ship.Symbol);
         return ship;
+    }
+
+    public static ShipFactory GetInstance()
+    {
+        return _instance ??= new ShipFactory();
     }
 }

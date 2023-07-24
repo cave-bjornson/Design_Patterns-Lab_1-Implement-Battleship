@@ -9,6 +9,8 @@ public interface IShip
     int Size { get; set; }
     int Hits { get; set; }
     bool Destroyed { get; }
+    char Symbol { get; set; }
+    char DamagedSymbol { get; set; }
 }
 
 public class Ship : IShip
@@ -20,6 +22,8 @@ public class Ship : IShip
     public int Size { get; set; }
     public int Hits { get; set; }
     public bool Destroyed => Hits >= Size;
+    public char Symbol { get; set; }
+    public char DamagedSymbol { get; set; }
 }
 
 public enum ShipClass
