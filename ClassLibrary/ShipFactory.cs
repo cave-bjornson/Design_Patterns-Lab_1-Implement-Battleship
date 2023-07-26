@@ -7,6 +7,9 @@ public interface IShipFactory
     Ship CreateShip(ShipClass shipClass);
 }
 
+/// <summary>
+///     The Simple Factory pattern implemented as a Singleton.
+/// </summary>
 public class ShipFactory : IShipFactory
 {
     private static ShipFactory? _instance;

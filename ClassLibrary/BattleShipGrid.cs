@@ -88,14 +88,17 @@ public class BattleShipGrid
 
     public BattleShipGrid()
     {
-        Grid = new char[10, 10];
-        MaskedGrid = new char[10, 10];
-        Grid.AsSpan2D().Fill('.');
-        Grid.AsSpan2D().CopyTo(MaskedGrid);
+        CharArray = new char[Size, Size];
+        MaskedCharArray = new char[Size, Size];
+        CharArray.AsSpan2D().Fill('.');
+        CharArray.AsSpan2D().CopyTo(MaskedCharArray);
     }
 
-    public char[,] Grid { get; }
-    public char[,] MaskedGrid { get; }
+    private int Size { get; } = 10;
+    public char[,] CharArray { get; }
+    public char[,] MaskedCharArray { get; }
+    public char MaxLetter => (char)('A' + Size - 1);
+    public int MaxNumber => Size;
 
     public Square GetSquare(char letter, int number)
     {
@@ -116,9 +119,9 @@ public class BattleShipGrid
 
         var (rowIdx, colIdx) = square.Position;
 
-        Grid[rowIdx, colIdx] = square.GetChar();
+        CharArray[rowIdx, colIdx] = square.GetChar();
 
-        MaskedGrid[rowIdx, colIdx] = square.SquareType switch
+        MaskedCharArray[rowIdx, colIdx] = square.SquareType switch
         {
             Splash => '0',
             DamagedShip => '*',
@@ -131,6 +134,11 @@ public static class GridExtensions
 {
     public static bool PlaceShip(this BattleShipGrid grid, Ship ship, char letter, int number, bool horizontal)
     {
+        // Determine xy limits depending on size of grid, ship-size and ship-rotation
+        var charLimit = (char)(horizontal ? grid.MaxLetter : grid.MaxLetter - ship.Size + 1);
+        var numberLimit = horizontal ? grid.MaxNumber - ship.Size + 1 : grid.MaxNumber;
+        if (letter > charLimit || number > numberLimit) return false;
+
         var shipSquares = new SquarePosition[ship.Size];
         var currentSquare = new SquarePosition { Letter = letter, Number = number };
         if (grid.GetSquare(letter, number).SquareType == SquareType.Ship) return false;

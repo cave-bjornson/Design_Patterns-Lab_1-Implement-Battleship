@@ -2,7 +2,11 @@ namespace ClassLibrary;
 
 public class Player
 {
-    private readonly BattleShipGrid _grid;
+    public BattleShipGrid Grid { get; init; } = new();
 
-    public IEnumerable<IShip> Ships { get; init; } = new List<IShip>();
+    public ICollection<IShip> Ships { get; init; } = new List<IShip>();
+
+    public IPlayStrategy PlayStrategy { get; set; }
+
+    public IPlacementStrategy PlacementStrategy { get; set; }
 }

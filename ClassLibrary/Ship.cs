@@ -4,7 +4,7 @@ public interface IShip
 {
     ShipClass ShipClass { get; init; }
     string Name { get; init; }
-    Tuple<int, int>? BowPosition { get; set; }
+    SquarePosition? BowPosition { get; set; }
     bool Horizontal { get; set; }
     int Size { get; set; }
     int Hits { get; set; }
@@ -17,7 +17,7 @@ public class Ship : IShip
 {
     public required ShipClass ShipClass { get; init; }
     public required string Name { get; init; }
-    public Tuple<int, int>? BowPosition { get; set; }
+    public SquarePosition? BowPosition { get; set; }
     public bool Horizontal { get; set; }
     public int Size { get; set; }
     public int Hits { get; set; }
